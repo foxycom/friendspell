@@ -10,7 +10,7 @@ android {
 
   defaultConfig {
     applicationId 'com.sqisland.friendspell'
-    minSdkVersion 15
+    minSdkVersion 23
     targetSdkVersion 27
     versionCode 5
     versionName '1.1.1'
@@ -92,4 +92,3 @@ dependencies {
   androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
 }
 
-apply plugin: 'com.google.gms.google-services'
