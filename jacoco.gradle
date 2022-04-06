@@ -52,14 +52,10 @@ task jacocoTestsReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
 
     def mainSrc = "/src/main/java"
 
-    //sourceDirectories = files([mainSrc])
-    getSourceDirectories().setFrom(files([mainSrc]))
-    getClassDirectories().setFrom(files([debugTree]))
-    getExecutionData().setFrom(fileTree(dir: "${buildDir}", includes: [
-            "/jacoco/testDebugUnitTest.exec"]))
-    //classDirectories = files([debugTree])
-    //executionData = fileTree(dir: "${buildDir}", includes:[
-    //        "/jacoco/testDebugUnitTest.exec"])
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: "${buildDir}", includes:[
+            "/jacoco/testDebugUnitTest.exec"])
 }
 
 
@@ -81,16 +77,15 @@ task jacocoUnitTestCoverage(type: JacocoReport, dependsOn: ['testDebugUnitTest']
     }
     def fileFilter = ['**/R.class', '**/BuildConfig.class', '**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
     def coverageSourceDirs = ["${project.projectDir}/src/main/java"]
-    getClassDirectories().setFrom(fileTree(dir: "${buildDir}/intermediates/classes/normal/debug", excludes: fileFilter))
-    getSourceDirectories().setFrom(files(coverageSourceDirs))
-
-    getExecutionData().setFrom(fileTree(
+    classDirectories = files([fileTree(dir: "${buildDir}/intermediates/classes/normal/debug", excludes: fileFilter)])
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = fileTree(
             dir: "${buildDir}",
             include: ['jacoco/testDebugUnitTest.exec']
-    ))
+    )
 }
 
-task jacocoGUITestCoverage(type: JacocoReport, dependsOn: ['connectedAndroidTest']) {
+task jacocoGUITestCoverage(type: JacocoReport, dependsOn: ['connectedNormalDebugAndroidTest']) {
     group = 'Reporting'
     description = 'Generate JaCoCo coverage report for GUI tests'
     reports {
@@ -104,11 +99,10 @@ task jacocoGUITestCoverage(type: JacocoReport, dependsOn: ['connectedAndroidTest
     }
     def fileFilter = ['**/R.class', '**/BuildConfig.class', '**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
     def coverageSourceDirs = ["${project.projectDir}/src/main/java"]
-    getClassDirectories().setFrom(fileTree(dir: "${buildDir}/intermediates/classes/normal/debug", excludes: fileFilter))
-    getSourceDirectories().setFrom(files(coverageSourceDirs))
-
-    getExecutionData().setFrom(fileTree(
+    classDirectories = files([fileTree(dir: "${buildDir}/intermediates/classes/normal/debug", excludes: fileFilter)])
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = fileTree(
             dir: "${buildDir}",
-            include: ['outputs/code-coverage/connected/flavors/NORMAL/*coverage.ec']
-    ))
+            include: ['outputs/code-coverage/connected/flavors/NORMAL/*-coverage.ec']
+    )
 }

@@ -47,6 +47,7 @@ android {
   defaultConfig {
     applicationId 'com.sqisland.friendspell'
     minSdkVersion 23
+    compileSdkVersion 27
     targetSdkVersion 27
     versionCode 5
     versionName '1.1.1'
