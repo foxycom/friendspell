@@ -59,7 +59,7 @@ task jacocoTestsReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
 }
 
 
-task jacocoUnitTestCoverage(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+task jacocoUnitTestCoverage(type: JacocoReport, dependsOn: ['testNormalDebugUnitTest']) {
     group = 'Reporting'
     description = 'Generate JaCoCo coverage report for unit tests'
     reports {
